@@ -2,7 +2,7 @@
 
 ### What's Changed
 
-- update `oxc` version range to `~0.155.0`
+- update `oxc` version range to `~0.157.0`
 
 ## 0.2.1 (2026-10-18)
 
