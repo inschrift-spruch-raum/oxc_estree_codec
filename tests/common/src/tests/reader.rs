@@ -341,10 +341,7 @@ fn test_read_number_edge_cases() {
             "fixture must parse: {code}"
         );
 
-        let json: String = oxc_estree_codec::program_to_json(
-            &parser_return.program,
-            oxc_estree_codec::ProgramToJsonOptions::new(),
-        );
+        let json: String = parser_return.program.to_estree_json(true, false);
 
         let program: oxc::ast::ast::Program<'_> =
             oxc_estree_codec::json_to_program(
@@ -383,10 +380,7 @@ fn test_read_infinity_string_not_corrupted() {
 
     assert!(parser_return.diagnostics.is_empty());
 
-    let json: String = oxc_estree_codec::program_to_json(
-        &parser_return.program,
-        oxc_estree_codec::ProgramToJsonOptions::new(),
-    );
+    let json: String = parser_return.program.to_estree_json(true, false);
 
     let program: oxc::ast::ast::Program<'_> =
         oxc_estree_codec::json_to_program(
@@ -422,10 +416,7 @@ fn test_read_infinity_number_positions() {
 
     assert!(parser_return.diagnostics.is_empty());
 
-    let json: String = oxc_estree_codec::program_to_json(
-        &parser_return.program,
-        oxc_estree_codec::ProgramToJsonOptions::new(),
-    );
+    let json: String = parser_return.program.to_estree_json(true, false);
 
     assert!(json.contains("1e+400"), "serializer must emit sentinels");
 

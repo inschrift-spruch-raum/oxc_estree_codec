@@ -78,7 +78,6 @@ Reader failures are `ReadError`: typed variants for the common cases (`NodeUnsup
 
 ## Public API surface
 
-- `program_to_json(&Program, ProgramToJsonOptions) -> String` — thin wrapper over oxc's `to_estree_json`.
 - `json_to_program(&str, JsonToProgramOptions) -> Result<Program, ReadError>`.
-- `ProgramToJsonOptions` / `JsonToProgramOptions`; `JsonToProgramOptions` carries the `Allocator`, `source_type`, and `source_text`.
+- `JsonToProgramOptions` carries the `Allocator`, `source_type`, and `source_text`.
 - `__internal::ProgramReader` (doc-hidden) — used by this repo's own tests to read pre-built `sonic_rs::Value` trees (mutation tests).

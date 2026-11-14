@@ -6,7 +6,7 @@ version = "0.2.2"
 authors = ["Alpheus <contact@alphe.us>"]
 edition.workspace = true
 rust-version.workspace = true
-description = "A two-way codec between ESTree and oxc's typed AST"
+description = "Read ESTree JSON into oxc's typed Rust AST"
 readme = "README.md"
 homepage = "https://github.com/telarel/oxc_estree_codec"
 repository = "https://github.com/telarel/oxc_estree_codec"
@@ -16,5 +16,5 @@ categories = ["compilers", "web-programming"]
 include = ["src/**", "Cargo.toml", "README.md"]
 
 [dependencies]
-oxc = { workspace = true, features = ["serialize"] }
+oxc = { workspace = true }
 sonic-rs = { workspace = true }

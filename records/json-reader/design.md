@@ -16,7 +16,7 @@ The JS→Rust path parsed ESTree JSON with sonic-rs into a fully-owned DOM (`son
 | `ast_read`     | ~198.4 µs | reader walk + codegen + fresh `Allocator` |
 | `roundtrip`    | ~304.1 µs | all of the above                          |
 
-Estimated physical floor for JSON-text input at this size: ~20–30 µs. The campaign's goal: minimize codec-only cost (JSON string → typed oxc `Program`) without changing the public API (`program_to_json`, `json_to_program`, `ReadError` — all frozen).
+Estimated physical floor for JSON-text input at this size: ~20–30 µs. The campaign's goal: minimize codec-only cost (JSON string → typed oxc `Program`) without changing the then-current public API.
 
 ## What was tried, and the verdict per stage
 
@@ -72,7 +72,7 @@ The only untested upside of the tape path was **wasm SIMD coverage**: sonic-rs h
 
 ## Invariants for any future attempt
 
-- Public API frozen: `program_to_json(&Program, ProgramToJsonOptions) -> String`, `json_to_program(&str, JsonToProgramOptions) -> Result<Program, ReadError>`, and the `ReadError` variants.
+- Reader public API frozen: `json_to_program(&str, JsonToProgramOptions) -> Result<Program, ReadError>` and the `ReadError` variants.
 - Correctness gates, in order of what they catch:
     1. The four number/sentinel regression tests (`test_read_number_edge_cases`, `test_read_infinity_string_not_corrupted`, `test_read_infinity_number_positions`, `test_read_infinity_nested_and_negative`) — note their limits: `test_read_number_edge_cases` did **not** catch the legacy-octal trap; only test262 did.
     2. The three corpus suites (test262, babel, eslint-typescript) — eslint-typescript also covers arbitrary field order and unknown extra fields.

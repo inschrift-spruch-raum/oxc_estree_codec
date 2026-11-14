@@ -1,25 +1,10 @@
-//! A two-way codec between ESTree and oxc's typed AST.
+//! Read ESTree JSON into oxc's typed Rust AST.
 //!
-//! The codec works across a string boundary: serialize a typed
-//! [`oxc`](https://docs.rs/oxc) `Program` into an ESTree JSON string (and read
-//! a string back into a typed `Program`), while the JS side parses that string
-//! into an ESTree AST (and serializes an ESTree AST into a string).
+//! The codec works across a string boundary: the JS side serializes an ESTree
+//! AST with `JSON.stringify`, and the Rust side reads that JSON string into a
+//! typed [`oxc`](https://docs.rs/oxc) `Program`.
 //!
 //! ## Usage
-//!
-//! **Rust → JS**: serialize a typed AST into an ESTree JSON string:
-//!
-//! ```rust,ignore
-//! use oxc_estree_codec::{ProgramToJsonOptions, program_to_json};
-//!
-//! let json: String = program_to_json(&program, ProgramToJsonOptions::new());
-//! ```
-//!
-//! ```ts
-//! import type { Program } from "estree"; // npm i -D @types/estree
-//!
-//! const ast: Program = JSON.parse(json); // JSON string → ESTree AST
-//! ```
 //!
 //! **JS → Rust**: read an ESTree JSON string into a typed AST:
 //!
@@ -56,16 +41,8 @@ use oxc::ast::ast::Program;
 
 use crate::reader::engine::program::ProgramReader;
 
-pub use crate::_types::options::{JsonToProgramOptions, ProgramToJsonOptions};
+pub use crate::_types::options::JsonToProgramOptions;
 pub use crate::errors::read::ReadError;
-
-/// Serialize a typed oxc `Program` into an ESTree JSON string.
-pub fn program_to_json(
-    program: &Program<'_>,
-    options: ProgramToJsonOptions,
-) -> String {
-    program.to_estree_json(options.include_ts_fields, options.ranges)
-}
 
 /// Read an ESTree JSON string into a typed oxc `Program`.
 pub fn json_to_program<'j, 'a>(

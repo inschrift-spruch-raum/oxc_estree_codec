@@ -1,3 +1,9 @@
+## Unreleased
+
+### Breaking Changes
+
+- Remove Rust AST → ESTree serialization (`program_to_json` and `ProgramToJsonOptions`). The crate now only reads ESTree JSON into oxc's typed Rust AST.
+
 ## 0.2.2 (2026-11-05)
 
 ### What's Changed

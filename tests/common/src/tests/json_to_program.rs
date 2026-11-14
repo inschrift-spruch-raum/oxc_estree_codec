@@ -1,10 +1,7 @@
 use oxc::allocator::Allocator;
 use oxc::span::SourceType;
 
-use oxc_estree_codec::{
-    JsonToProgramOptions, ProgramToJsonOptions, json_to_program,
-    program_to_json,
-};
+use oxc_estree_codec::{JsonToProgramOptions, json_to_program};
 
 fn parse_to_json(
     code: &str,
@@ -54,7 +51,7 @@ fn assert_lone_surrogates_roundtrip(
     let program: oxc::ast::ast::Program<'_> =
         read_with_source_type(&allocator, &json, source_type);
 
-    let after: String = program_to_json(&program, ProgramToJsonOptions::new());
+    let after: String = program.to_estree_json(true, false);
 
     assert_eq!(
         after, json,

@@ -1,6 +1,6 @@
 # oxc_estree_codec
 
-A two-way codec between ESTree and oxc's typed AST.
+Read ESTree JSON into oxc's typed Rust AST.
 
 ## License
 
